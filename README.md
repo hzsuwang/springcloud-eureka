@@ -1,5 +1,5 @@
 # springcloud-eureka
-# eureka-server project 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加：
+## eureka-server project 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加：
     @EnableEurekaServer
     @SpringBootApplication
     public class Application {
@@ -9,7 +9,7 @@
         }
 
     }
- #pom.xml配置 
+ ## pom.xml配置 
      <?xml version="1.0" encoding="UTF-8"?>
     <project xmlns="http://maven.apache.org/POM/4.0.0"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -69,3 +69,27 @@
 
     </project>
 
+   ## eureka-server  项目提供了4个配置文件：
+        application.properties
+        application-peer1.properties
+        application-peer2.properties
+        application-peer3.properties
+   
+   ##  单个服务启动，默认激活application.properties 配置
+        java -jar eureka-server-1.0-SNAPSHOT.jar
+        
+   ## 集群配置启动
+   
+   ### 1：在etc/hosts中配置peer1，peer2，peer3，如下:
+        
+        127.0.0.1 peer1
+        127.0.0.1 peer2
+        127.0.0.1 peer3
+        
+        
+   ### 对maven工程编译打包之后，激活相应的配置文件，运行命令：
+        
+        java -jar eureka-server-1.0-SNAPSHOT.jar --spring.profiles.active=peer1
+        java -jar eureka-server-1.0-SNAPSHOT.jar --spring.profiles.active=peer2
+        java -jar eureka-server-1.0-SNAPSHOT.jar --spring.profiles.active=peer3
+   
